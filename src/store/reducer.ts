@@ -4,17 +4,17 @@ const initialState = {
   task: null,
 };
 
-interface id {
+interface Id {
   type: string;
   id: string;
 }
 
-interface user {
+interface User {
   type: string;
   user: string;
 }
 
-interface task {
+interface Task {
   type: string;
   task: object;
 }
@@ -23,17 +23,17 @@ const SET_USER = 'SET_USER';
 const SET_USER_ID = 'SET_USER_ID';
 const SET_USER_TASK = 'SET_USER_TASK';
 
-export const setUserId = (id: string): id => ({
+export const setUserId = (id: string): Id => ({
   type: SET_USER_ID,
   id,
 });
 
-export const setUser = (user: string): user => ({
+export const setUser = (user: string): User => ({
   type: SET_USER,
   user,
 });
 
-export const setUserTask = (task: object): task => ({
+export const setUserTask = (task: object): Task => ({
   type: SET_USER_TASK,
   task,
 });
