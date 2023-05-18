@@ -1,12 +1,14 @@
 import { generateRandomId } from '../../utils/randomNumber';
 
-type User = {
+type TUser = {
   id: string;
   name: string;
   task: { taskId: string; text: string; status: string }[];
 };
 
-export let arrUsers: User[] = [];
+type TTasks = { taskId: string; text: string; status: string }[];
+
+export let arrUsers: TUser[] = [];
 
 export const setData = () => {
   localStorage.clear();
@@ -49,7 +51,7 @@ export const addTask = (id: string, text: string, status: string) => {
   setData();
 };
 
-export const getTask = (id: string): object => {
+export const getTask = (id: string): TTasks => {
   return arrUsers.filter((item) => item.id === id).map((item) => item.task)[0];
 };
 

@@ -8,6 +8,6 @@ const rootReducer = combineReducers({
 });
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-export type AppStore = typeof store;
-export type AppDispatch = AppStore['dispatch'];
-export type RootState = ReturnType<typeof rootReducer>;
+export type TAppStore = typeof store;
+export type TAppDispatch = TAppStore['dispatch'];
+export type TRootState = ReturnType<typeof rootReducer>;

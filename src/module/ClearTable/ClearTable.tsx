@@ -1,3 +1,3 @@
 export const ClearTable = () => {
-  return <div></div>;
+  return <tr></tr>;
 };

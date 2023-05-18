@@ -3,12 +3,12 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setUserTask } from '../../../store/reducer';
 import { changeStatus, delTask, getTask } from '../../UsersData/user';
 
-interface Props {
+interface IProps {
   item: { taskId: string; text: string; status: string };
   index: number;
 }
 
-export const TableBody = ({ item, index }: Props) => {
+export const TableBody = ({ item, index }: IProps) => {
   const { taskId, text, status } = item;
   const [statusTask, setStatusTask] = useState(false);
   const dispatch = useAppDispatch();
