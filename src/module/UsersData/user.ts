@@ -73,7 +73,6 @@ export const delTask = (id: string, taskId: string) => {
     if (myUser.task.find((item) => item.taskId === taskId)) {
       const tasks = myUser.task.filter((item) => item.taskId !== taskId);
       arrUsers.filter((item) => item.id === id).map((item) => (item.task = tasks));
-      console.log('delete', tasks);
     }
   }
   setData();
@@ -84,5 +83,13 @@ export const getUserId = (name: string): string => {
 };
 
 export const getUserName = (id: string): string => {
-  return arrUsers.filter((item) => item.id === id)[0].id;
+  return arrUsers.filter((item) => item.id === id)[0].name;
+};
+
+export const DelUser = (name: string) => {
+  // console.log(arrUsers.find((item) => item.name === name)?.name);
+  if (arrUsers.find((item) => item.name === name)?.name) {
+    arrUsers = arrUsers.filter((item) => item.name !== name);
+  }
+  setData();
 };

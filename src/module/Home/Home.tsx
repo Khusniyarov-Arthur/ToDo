@@ -1,9 +1,12 @@
 import { Button } from 'react-bootstrap';
 import { useAppDispatch } from '../../hooks';
-import { useEffect, useState } from 'react';
-import { addUserInArr, getData, getUserId } from '../UsersData/user';
+import React, { useEffect, useState } from 'react';
+import { DelUser, addUserInArr, arrUsers, getData, getUserId } from '../UsersData/user';
 import { useNavigate } from 'react-router-dom';
 import { setUser, setUserId } from '../../store/reducer';
+import style from './Home.module.scss';
+import { generateRandomId } from '../../utils/randomNumber';
+import closeImg from '../Home/img/close.svg';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -11,6 +14,8 @@ export const Home = () => {
 
   const [Disabled, setDisabled] = useState(true);
   const [name, setName] = useState('');
+  const [lengthArr, setLengthArr] = useState(0);
+  const [lengt, setLengt] = useState(arrUsers.length);
 
   const handleChange = (e: React.ChangeEvent<EventTarget>) => {
     e.preventDefault();
@@ -27,6 +32,13 @@ export const Home = () => {
     userPage();
   };
 
+  const deleteUserInArr = (name: string) => {
+    if (confirm('Безвозвратно удалить список задач данного пользователя?')) {
+      DelUser(name);
+      setLengt(arrUsers.length);
+    }
+  };
+
   const userPage = () => {
     navigate(`/user/${getUserId(name)}`);
   };
@@ -41,11 +53,40 @@ export const Home = () => {
 
   useEffect(() => {
     getData();
-  });
+    setLengthArr(arrUsers.length);
+  }, [lengt]);
 
   return (
     <div className='container'>
       <h1 className='d-flex align-items-center'>Список дел</h1>
+      {lengthArr > 0 && (
+        <>
+          <span>Войти как:</span>
+          {arrUsers.map((item) => {
+            return (
+              <React.Fragment key={item.id}>
+                <button
+                  className={style.userAuth}
+                  key={generateRandomId()}
+                  onClick={() => {
+                    navigate(`/user/${item.id}`);
+                  }}
+                >
+                  {item.name}
+                </button>
+                <img
+                  src={closeImg}
+                  onClick={() => {
+                    deleteUserInArr(item.name);
+                  }}
+                  className={style.delUser}
+                />
+              </React.Fragment>
+            );
+          })}
+        </>
+      )}
+
       <span className='d-block mb-2'>Пожалуйста авторизуйтесь</span>
       <form onSubmit={addUser} className='d-flex align-items-center'>
         <label className='form-group me-3 mb-0'>

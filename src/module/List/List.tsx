@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 export const List = () => {
   const [text, setText] = useState('');
   const [Disabled, setDisabled] = useState(true);
+  const [AuthName, setAuthName] = useState('');
   const task: { taskId: string; text: string; status: string }[] = useAppSelector(
     (state) => state.userReducer.task,
   );
@@ -35,6 +36,7 @@ export const List = () => {
     dispatch(setUser(getUserName(id)));
     dispatch(setUserTask(getTask(id)));
     dispatch(setUserId(id));
+    setAuthName(getUserName(id));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<EventTarget>) => {
@@ -83,15 +85,18 @@ export const List = () => {
               Очистить
             </Button>
           </form>
-          <Button
-            onClick={() => {
-              navigate('/');
-            }}
-            className='btn btn-secondary ms-3 mb-3'
-            type='submit'
-          >
-            Выйти
-          </Button>
+          <div>
+            <span className={style.authName}>{AuthName}</span>
+            <Button
+              onClick={() => {
+                navigate('/');
+              }}
+              className='btn btn-secondary ms-3 mb-3'
+              type='submit'
+            >
+              Выйти
+            </Button>
+          </div>
         </div>
 
         <div className={style.table_wrapper}>
